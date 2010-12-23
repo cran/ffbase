@@ -5,6 +5,7 @@
 #' @export chunkify
 #' @param fun function to be 'chunkified', the function must accept a vector and 
 #'    return a vector of the same \code{length}
+#' @return 'chunkified' function that accepts a \code{ff} vector as its first argument.
 chunkify <- function(fun){
    cfun <- function( x
                    , ...
