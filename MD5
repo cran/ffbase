@@ -1,11 +1,11 @@
-9c2a720548ee41243cb5c3c7db5fe681 *DESCRIPTION
-5c5ed78e7f5820526b8001a79e3b7e92 *NAMESPACE
-cf31800b689fd5832489af1ea1f8b0b2 *NEWS
-3b81c031a008eeb810f59eec9fa1f638 *R/Ops.R
+6b1ca0e3b3f3045b5d97077fdb3d5e72 *DESCRIPTION
+bdfe92b86f2147ebfbc14aa23a2cd390 *NAMESPACE
+606a35158c7a15d9644dd65c4bad4cf0 *NEWS
+d00a8eb07cbd1b911ddfd5f680599722 *R/Ops.R
 21b92c0ceadf29a5ede70ff80ec44ed6 *R/Summary_ff.R
 2805d2823dce522da0aedc98d554eade *R/as.R
 b237ef50eaeda91008d224f7cac25ded *R/auxilary.R
-9946782e04a1ce0a79d4e2cd1666a03d *R/bigglm.R
+73774592e7277cbb1c9f64836b79f30a *R/bigglm.R
 d2e18d8a8955ba81548029649ffe64f7 *R/binned_sum.R
 85ba45f83ea5b1aa09a4d521bd951ba9 *R/binned_sumsq.R
 581de524fcdbe9a493a4dced4fa3cf23 *R/binned_tabulate.R
@@ -19,7 +19,7 @@ f4ee0f75a4211a99f1ee4d52947d9932 *R/chunkify.R
 d600b5c2bb1e825fedb1971a7fb984b8 *R/droplevels.R
 d5584c72ade031d33dc7113f2452e23a *R/duplicated.R
 196a05e39675845591fe1a7f03140cea *R/expand_ffgrid.R
-ee3fe9ef3ee3af42cfe4317c25e19a63 *R/ffappend.R
+071d567cb888244ae80c241b226d76e6 *R/ffappend.R
 5711ad4803183902d8eb6ec4135a1104 *R/ffdfdply.R
 6cca1559aa1c5fd1ade151cbf99949a0 *R/ffdfsave.R
 e10f00ba5303e64f76ae550e10cc8c55 *R/ffdfwith.R
@@ -30,8 +30,8 @@ e6b7744bb15b4eba7e5659f613849077 *R/ffordered.R
 f4f6ad15411c36c244b26f8c508a82b0 *R/ffseq.R
 afb288694cbccd1b18f4514cb936a67c *R/ffwhich.R
 2e74516c37f211c999aacb5af66ffae4 *R/hist_ff.R
+d1721fca92ff9439c0431d2f2ce1653e *R/ikey.R
 50b34af7af7d4c0f5575af561bb191a4 *R/isNA.R
-29b2d936e24e5503850fbae5cd96c18a *R/key.R
 7b17e9f6b89755cc96af401c602f5773 *R/laf_to_ffdf.R
 64355498c05407686b546161104f12b4 *R/mean.R
 52fe0d6c23f4853f008d582603515611 *R/merge.R
@@ -57,8 +57,8 @@ e0ff4ce67e717ea56c9a5dbb1ddd7255 *inst/tests/testffappend.R
 3138362991d586532e4aa862c881c0bf *inst/tests/testffifelse.R
 36d33def08699112846d9589ffba9c3b *inst/tests/testffmatch.R
 e854c03e547592f1e651d1a90f677d2f *inst/tests/testffwhich.R
+b744292904ea9b875bfabbc41804d032 *inst/tests/testikey.R
 f6222ce99f2b2110c2b3db8068ef5f7d *inst/tests/testisna.R
-0187699b73181ba4350f155aa88a929b *inst/tests/testkey.R
 706445203049e084cdaa62bc5e876451 *inst/tests/testlaf.R
 1c40358378d21e1cfab1483484c22edb *inst/tests/testmean.ff.R
 e54592dae24f0e1327dd19f246c829d6 *inst/tests/testmerge.R
@@ -78,7 +78,7 @@ ab8cb0db15beb209b7d0781dd7fa5496 *inst/tests/testwithin.R
 457eb38ba7621016074bac9ab36d85b8 *man/all.ff.Rd
 56c47b5fccb6f2072d04abca5b2f6c4b *man/any.ff.Rd
 eba8ff5364fa945a14876a6b8cc9d9ec *man/as.character.ff.Rd
-cadc8a892e7d9b04bfae8ec5a1f3b140 *man/bigglm.ffdf.Rd
+525eed34efd8c792ceae9ad53b4fa9ef *man/bigglm.ffdf.Rd
 09e0fc1f27ca45ba14013102116b13dd *man/binned_sum.Rd
 3476fb6b181529add58fb9635c99fc7c *man/binned_sumsq.Rd
 82d0dd21c280bcf7f97d94a9be5d5e9d *man/binned_tabulate.Rd
@@ -114,8 +114,8 @@ d1768d53ea9f360b462c37e26467ba31 *man/ffseq_len.Rd
 c0f54e27bb79c0b767613d3dc6d9eb75 *man/ffwhich.Rd
 829f1154387a67d42748f93ecce62361 *man/grouprunningcumsum.Rd
 cf41382da7a7747ab6a4ab54b5deac11 *man/hist.ff.Rd
+d8e3312810bf094d70546c3137ca7e1e *man/ikey.Rd
 03548158cfdfec931f78b3d0e25b50e8 *man/is.na.ff.Rd
-e236cd2e2ef9955ef6acb03f4829e35d *man/key.Rd
 85c64c5238a9300c586be535a1c2ab88 *man/laf_to_ffdf.Rd
 a33f01724789f77c47a99fb7cebf9caa *man/load.ffdf.Rd
 b91adacdead5908be4b0a7c88e4e665c *man/mean.ff.Rd
