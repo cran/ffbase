@@ -12,7 +12,7 @@ chunkify <- function(fun){
                    , inplace=FALSE
 				       ){
                    
-     chunks <- chunk(x)
+     chunks <- chunk(x, ...)
      
      i <- chunks[[1]]
      ret <- as.ff(fun(x[i], ...))
@@ -25,3 +25,22 @@ chunkify <- function(fun){
    }
    cfun
 }
+
+#' Chunk an expression to be used in a chunked for loop
+#'@param x \code{character} with vars
+#'@param expr \code{expression} vector
+#'@param i name of index
+#'@param prefix prefix for variables to be replaced.
+#'@keywords internal
+chunkexpr <- function(x, expr, i=".i", prefix=""){
+  es <- expr
+  xs <- x
+  for (var in xs){
+    varre <- paste("\\b(",var,")\\b", sep="")
+    varsub <- paste(prefix, "\\1[",i,"]", sep="")
+    es <- gsub(varre, varsub, es)
+  }
+  parse(text=es)
+}
+
+#chunkexpr(c("x","y"), c("x>2 & y==1\nz==3", "y > 3"), i=".i", prefix="data$")

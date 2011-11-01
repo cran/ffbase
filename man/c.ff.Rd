@@ -1,11 +1,19 @@
 \name{c.ff}
 \alias{c.ff}
-\title{Concatenate ff vectors...}
-\usage{\method{c}{ff}(...)
+\title{Concatenate \code{ff} vectors}
+\usage{
+  \method{c}{ff} (...)
 }
-\description{Concatenate \code{ff} vectors}
-\seealso{\code{link{ffappend}}}
-\value{a new \code{ff} object, data is physically copied}
-\arguments{\item{...}{\code{ff} ff vectors to be combined}
+\arguments{
+  \item{...}{\code{ff} ff vectors to be concatenated}
+}
+\value{
+  a new \code{ff} object, data is physically copied
+}
+\description{
+  Concatenate \code{ff} vectors
+}
+\seealso{
+  \code{\link{ffappend}}
 }
 

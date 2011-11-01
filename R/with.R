@@ -1,12 +1,14 @@
 #' Evaluate an expression in a ffdf data environment 
 #' 
-#' Same functionality as \code{\link{with}}. Please note that you should write
+#' Evaluate an R expression in an environment constructed from a ffdata data frame.
+#' (see \code{\link{with}}). Please note that you should write
 #' your expression as if it is a normal \code{data.frame}. The resulting return value
 #' however will be a \code{ff} object.
+#' @seealso \code{\link{ffdfwith}}
 #' @method with ffdf 
 #' @export
 #'
-#' @example examples/with.R
+#' @example ../examples/with.R
 #' @param data \code{\link{ffdf}} data object used as an environment for evaluation.
 #' @param expr expression to evaluate.
 #' @param ... arguments to be passed to future methods.
@@ -15,23 +17,42 @@
 with.ffdf <- function(data, expr, ...){
    e <- substitute(expr)
    #chunks <- chunk(data, by=2) #debug chunking
-   chunks <- chunk(data)
+   chunks <- chunk(data, ...)
    
    cdat <- data[chunks[[1]],,drop=FALSE]
    res <- eval(e, cdat, enclos=parent.frame())
    
-   if (is.vector(res)){
+   if (is.character(res)){
+     res <- as.factor(res)
+   } else if (is.data.frame(res)){
+     fc <- sapply(res, function(x) is.factor(x) || is.character(x))
+     res[fc] <- lapply(res[fc], as.factor)
+   }
+   
+   if (is.vector(res) || is.factor(res)){
       res <- as.ff(res)
       length(res) <- nrow(data)
       for (i in chunks[-1]){
-         res[i] <- eval(e, data[i,,drop=FALSE], enclos=parent.frame())
+        r <- eval(e, data[i,,drop=FALSE], enclos=parent.frame())
+        if (is.factor(res)){
+             r <- as.factor(r)
+             levels(res) <- appendLevels(res, levels(r))
+         }
+         res[i] <- r
       }
-   }
-   else if (is.data.frame(res)){
+   } else if (is.data.frame(res)){
       res <- as.ffdf(res)
       nrow(res) <- nrow(data)
       for (i in chunks[-1]){
-         res[i,] <- eval(e, data[i,,drop=FALSE], enclos=parent.frame())
+        r <- eval(e, data[i,,drop=FALSE], enclos=parent.frame())
+        if (any(fc)){
+           r[fc] <- lapply(which(fc), function(x) {
+                r[[x]] <- as.factor(r[[x]])
+                levels(res[[x]]) <<- appendLevels(res[[x]], r[[x]])
+                r[[x]]
+             })
+        }
+        res[i,] <- r
       }
    }
    res
@@ -45,7 +66,7 @@ with.ffdf <- function(data, expr, ...){
 #' @method within ffdf 
 #' @export
 #'
-#' @example examples/within.R
+#' @example ../examples/within.R
 #' @param data \code{\link{ffdf}} data object used as an environment for evaluation.
 #' @param expr expression to evaluate.
 #' @param ... arguments to be passed to future methods.
