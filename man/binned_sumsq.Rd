@@ -1,12 +1,17 @@
 \name{binned_sumsq}
 \alias{binned_sumsq}
+\alias{binned_sumsq.default}
 \alias{binned_sumsq.ff}
 \title{Fast summing in different bins}
 \usage{
   binned_sumsq(x, mean = rep(0, nbins), bin,
-    nbins = max(bin))
+    nbins = max(bin), ...)
 
-  \method{binned_sumsq}{ff} (x, bin, nbins=max(bin), ...)
+  \method{binned_sumsq}{default} (x, mean = rep(0, nbins),
+    bin, nbins = max(bin), ...)
+
+  \method{binned_sumsq}{ff} (x, mean = rep(0, nbins), bin,
+    nbins = max(bin), ...)
 }
 \arguments{
   \item{x}{\code{numeric} vector with the data to be summed
@@ -20,9 +25,13 @@
 
   \item{nbins}{\code{integer} maximum bin number}
 
-  \item{...}{passed on to chunk}
+  \item{...}{will be passed on to the implementation.}
 }
 \value{
+  \code{numeric} matrix where each row is a bin
+
+  \code{numeric} matrix where each row is a bin
+
   \code{numeric} matrix where each row is a bin
 }
 \description{

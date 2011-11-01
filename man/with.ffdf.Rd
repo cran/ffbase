@@ -10,7 +10,8 @@
 
   \item{expr}{expression to evaluate.}
 
-  \item{...}{arguments to be passed to future methods.}
+  \item{...}{arguments to be passed to
+  \code{\link{chunk}}.}
 }
 \value{
   if expression is a \code{vector} a newly created

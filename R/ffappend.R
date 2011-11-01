@@ -47,6 +47,7 @@ ffappend <- function(x, y, adjustvmode=TRUE, ...){
 	   x <- coerce_to_highest_vmode(x=x, y=y, onlytest=FALSE)
    }
    for (i in chunk(x, from=1, to=to, ...)){
+     #Log$chunk(i)
      if (is.atomic(y)){
 			 i <- as.which(i)
 	   }
@@ -75,19 +76,20 @@ ffdfappend <- function(  x
                        ){
   
   fc <- if (is.ffdf(dat)){ 
-    sapply(physical(dat), function(i) is.factor.ff(i) || is.character(i))
+    sapply(physical(dat), function(i) is.factor.ff(i))
   } else {
     sapply(dat, function(i) is.factor(i) || is.character(i))    
   }
   
-  if (any(fc)){
+  if (any(fc) && !is.ffdf(dat)){
     dat[fc] <- lapply( which(fc), function(i) {
         as.factor(dat[[i]])
     })
   }
   
   if (is.null(x)){
-      return(as.ffdf(dat, ...))
+      if (is.ffdf(dat)) { return(dat)
+      } else return(as.ffdf(dat, ...))
   }
      
    n <- nrow(dat)

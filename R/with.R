@@ -11,7 +11,7 @@
 #' @example ../examples/with.R
 #' @param data \code{\link{ffdf}} data object used as an environment for evaluation.
 #' @param expr expression to evaluate.
-#' @param ... arguments to be passed to future methods.
+#' @param ... arguments to be passed to \code{\link{chunk}}.
 #' @return if expression is a \code{vector} a newly created \code{ff} vector will be returned 
 #' otherwise if the expression is a data.frame a newly created \code{ffdf} object will be returned.
 with.ffdf <- function(data, expr, ...){
@@ -29,10 +29,11 @@ with.ffdf <- function(data, expr, ...){
      fc <- sapply(res, function(x) is.factor(x) || is.character(x))
      res[fc] <- lapply(res[fc], as.factor)
    }
-   if (is.vector(res) || is.factor(res)){
+   if (is.vector(res) || is.factor(res) || inherits(res, "Date") || inherits(res, "POSIXct")){
       res <- as.ff(res)
       length(res) <- nrow(data)
       for (i in chunks[-1]){
+        Log$chunk(i)
         r <- eval(e, data[i,,drop=FALSE], enclos=parent.frame())
         if (fc){ 
              r <- as.factor(r)
@@ -44,6 +45,7 @@ with.ffdf <- function(data, expr, ...){
       res <- as.ffdf(res)
       nrow(res) <- nrow(data)
       for (i in chunks[-1]){
+        Log$chunk(i)
         r <- eval(e, data[i,,drop=FALSE], enclos=parent.frame())
         if (any(fc)){
            r[fc] <- lapply(which(fc), function(x) {
@@ -69,14 +71,14 @@ with.ffdf <- function(data, expr, ...){
 #' @example ../examples/within.R
 #' @param data \code{\link{ffdf}} data object used as an environment for evaluation.
 #' @param expr expression to evaluate.
-#' @param ... arguments to be passed to future methods.
+#' @param ... arguments to be passed to \code{\link{chunk}}.
 #' @return a modified clone of \code{data}.
 within.ffdf <- function(data, expr, ...){
     expr <- substitute(expr)
     parent <- parent.frame()
     
     #chunks <- chunk(data, by=2) debug chunking
-    chunks <- chunk(data)
+    chunks <- chunk(data, ...)
     cdat <- data[chunks[[1]],,drop=FALSE]
    
     e <- evalq(environment(), cdat, parent)
