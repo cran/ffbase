@@ -6,7 +6,7 @@ Type: Package
 LazyLoad: yes
 Author: Edwin de Jonge, Jan Wijffels, Jan van der Laan
 Description: Basic (statistical) functionality for package ff
-Version: 0.8
+Version: 0.9
 URL: http://github.com/edwindj/ffbase
 Date: 2011-11-1
 Depends: ff (>= 2.2-0), bit, R (>= 2.12.0)
@@ -21,8 +21,8 @@ Collate: 'auxilary.R' 'chunkify.R' 'compact.R' 'cut_ff.R' 'diff_ff.R'
         'binned_tabulate.R' 'tsum.R' 'Ops.R' 'ffmatch.R' 'save_ffdf.R'
         'bySum.R' 'byMean.R' 'ffifelse.R' 'as.R' 'expand_ffgrid.R'
         'ffrep.R' 'ffseq.R' 'bigglm.R' 'ikey.R' 'rle_ff.R' 'ffrandom.R'
-        'date_formatting.R' 'rbind_ffdf.R' 'logging.R'
-Packaged: 2013-04-15 11:48:30 UTC; Edwin
+        'date_formatting.R' 'rbind_ffdf.R' 'logging.R' 'rev_ff.R'
+Packaged: 2013-07-01 17:13:02 UTC; Edwin
 NeedsCompilation: yes
 Repository: CRAN
-Date/Publication: 2013-04-15 14:38:17
+Date/Publication: 2013-07-03 01:04:15

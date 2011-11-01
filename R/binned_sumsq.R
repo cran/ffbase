@@ -1,4 +1,4 @@
-#' Fast summing in different bins
+#' Fast squared summing in different bins
 #' 
 #' \code{binned_sum} implements fast squared summing for given bins by calling c-code,
 #' which can be used to calculate variance and standard deviation
@@ -24,8 +24,14 @@ binned_sumsq <- function (x, mean=rep(0, nbins), bin, nbins=max(bin), ...){
 binned_sumsq.default <- function (x, mean=rep(0, nbins), bin, nbins=max(bin), ...){
    stopifnot(length(x)==length(bin))
    stopifnot(length(x)==length(mean))
-   res <- .Call("binned_sumsq", as.numeric(x), as.numeric(mean), as.integer(bin), as.integer(nbins), PACKAGE = "ffbase")
-   dimnames(res) <- list(bin=1:nbins, c("count", "sumsq"))
+   if (is.factor(bin)){
+     bins <- levels(bin)
+     nbins <- length(bins)
+   } else {
+     bins <- seq_len(nbins)
+   }
+   res <- matrix(0, nrow=nbins, ncol=3, dimnames=list(bin=bins, c("count", "sumsq", "<NA>")))
+   .Call("binned_sumsq", as.numeric(x), as.numeric(mean), as.integer(bin), as.integer(nbins), res, PACKAGE = "ffbase")
    res
 }
 
@@ -35,10 +41,28 @@ binned_sumsq.default <- function (x, mean=rep(0, nbins), bin, nbins=max(bin), ..
 #' @S3method binned_sumsq ff
 #' @export binned_sumsq.ff
 binned_sumsq.ff <- function(x, mean=rep(0, nbins), bin, nbins=max(bin), ...){
-  res <- matrix(0, nrow=nbins, ncol=2, dimnames=list(bin=1:nbins, c("count", "sumsq")))
+  INDEX <- list(...)$INDEX
+  if (!is.null(INDEX)){
+    bins <- seq_len(nbins)
+    res <- matrix(0, nrow=nbins, ncol=3, dimnames=list(bin=bins, c("count", "sumsq", "<NA>")))
+    for (i in chunk(INDEX, ...)){
+      Log$chunk(i)
+      bin <- seq.int(i[1], i[2]) / ((length(INDEX)+1)/nbins) + 1
+      .Call("binned_sumsq", as.numeric(x[INDEX[i]]), as.numeric(mean), as.integer(bin), as.integer(nbins), res, PACKAGE = "ffbase")
+    }
+    return(res)
+  }
+  
+  if (is.factor.ff(bin)){
+    bins <- levels(bin)
+    nbins <- length(bins)
+  } else {
+    bins <- seq_len(nbins)
+  }
+  res <- matrix(0, nrow=nbins, ncol=3, dimnames=list(bin=bins, c("count", "sumsq","<NA>")))
   for (i in chunk(x, ...)){
     Log$chunk(i)
-    res <- res + .Call("binned_sumsq", as.numeric(x[i]), as.numeric(mean), as.integer(bin[i]), as.integer(nbins), PACKAGE = "ffbase")
+    .Call("binned_sumsq", as.numeric(x[i]), as.numeric(mean), as.integer(bin[i]), as.integer(nbins), res, PACKAGE = "ffbase")
   }
   res
 }

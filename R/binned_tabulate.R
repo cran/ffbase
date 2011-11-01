@@ -22,11 +22,16 @@ binned_tabulate <- function (x, bin, nbins=max(bin), nlevels=nlevels(x), ...){
 #' @S3method binned_tabulate default
 binned_tabulate.default <- function (x, bin, nbins=max(bin), nlevels=nlevels(x), ...){
    stopifnot(length(x)==length(bin))
-   
-   res <- .Call("binned_tabulate", x, as.integer(bin), as.integer(nbins), as.integer(nlevels), PACKAGE = "ffbase")
+   if (is.factor(bin)){
+     bins <- levels(bin)
+     nbins <- length(bins)
+   } else {
+     bins <- seq_len(nbins)
+   }
    lev <- if (nlevels(x)) c("na", levels(x))
           else c("na", 1:nlevels)
-   dimnames(res) <- list(bin = 1:nbins, level=lev)
+   res <- matrix(0L, nrow=nbins, ncol=length(lev), dimnames=list(bin=bins, level=lev))
+   .Call("binned_tabulate", as.integer(x), as.integer(bin), as.integer(nbins), as.integer(nlevels), res, PACKAGE = "ffbase")
    res
 }
 
@@ -37,10 +42,29 @@ binned_tabulate.default <- function (x, bin, nbins=max(bin), nlevels=nlevels(x),
 binned_tabulate.ff <- function(x, bin, nbins=max(bin), nlevels=nlevels(x), ...){
   lev <- if (nlevels(x)) c("na", levels(x))
          else c("na", 1:nlevels)
-  res <- matrix(0, nrow=nbins, ncol=length(lev), dimnames=list(bin=1:nbins, level=lev))
+
+  INDEX <- list(...)$INDEX
+  if (!is.null(INDEX)){
+    bins <- seq_len(nbins)
+    res <- matrix(0L, nrow=nbins, ncol=length(lev), dimnames=list(bin=bins, level=lev))
+    for (i in chunk(INDEX, ...)){
+      Log$chunk(i)
+      bin <- seq.int(i[1], i[2]) / ((length(INDEX)+1)/nbins) + 1
+      .Call("binned_tabulate", as.integer(x[INDEX[i]]), as.integer(bin), as.integer(nbins), as.integer(nlevels), res, PACKAGE = "ffbase")
+    }
+    return(res)
+  }
+  
+  if (is.factor.ff(bin)){
+    bins <- levels(bin)
+    nbins <- length(bins)
+  } else {
+    bins <- seq_len(nbins)
+  }
+  res <- matrix(0L, nrow=nbins, ncol=length(lev), dimnames=list(bin=bins, level=lev))
   for (i in chunk(x, ...)){
     Log$chunk(i)
-    res <- res + .Call("binned_tabulate", x[i], as.integer(bin[i]), as.integer(nbins), as.integer(nlevels), PACKAGE = "ffbase")
+    .Call("binned_tabulate", as.integer(x[i]), as.integer(bin[i]), as.integer(nbins), as.integer(nlevels), res, PACKAGE = "ffbase")
   }
   res
 }
@@ -61,3 +85,10 @@ binned_tabulate.ff <- function(x, bin, nbins=max(bin), nlevels=nlevels(x), ...){
 #              )
 #            )
 # 
+# size <- 1e5
+# x <- ff(sample(c(1:4,NA), size=size, replace=TRUE), vmode="integer")
+# bin <- ff(sample(1:100, size=size, replace=TRUE))
+# nbins <- max(bin, na.rm=TRUE)
+# nlevels <- max(x, na.rm=TRUE)
+# o <- ff(as.integer(200:1))
+# binned_tabulate.ff(x, bin, nbins, nlevels, INDEX=o, by=1e2)

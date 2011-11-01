@@ -1,6 +1,7 @@
 \name{droplevels.ffdf}
 \alias{droplevels.ffdf}
-\title{The function \code{droplevels} is used to drop unused levels from factors in a \code{\link{ffdf}}}
+\title{The function \code{droplevels} is used to drop unused levels from factors
+in a \code{\link{ffdf}}}
 \usage{
   \method{droplevels}{ffdf} (x, except = NULL, ...,
     inplace = FALSE)

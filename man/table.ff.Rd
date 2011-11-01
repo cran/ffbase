@@ -1,8 +1,9 @@
 \name{table.ff}
 \alias{table.ff}
-\title{table.ff uses the cross-classifying factors to build a contingency table of the
-counts at each combination of factor levels.\cr
-If \code{...} does not contain factors, \code{unique.ff} will add a levels attribute to the non-factors.}
+\title{table.ff uses the cross-classifying factors to build a contingency table of
+the counts at each combination of factor levels.\cr
+If \code{...} does not contain factors, \code{unique.ff} will add a levels
+attribute to the non-factors.}
 \usage{
   table.ff(..., exclude = if (useNA == "no") c(NA, NaN),
     useNA = c("no", "ifany", "always"),

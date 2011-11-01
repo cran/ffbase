@@ -1,7 +1,7 @@
 \name{droplevels.ff}
 \alias{droplevels.ff}
-\title{The function \code{droplevels} is used to drop unused levels from a \code{ff} factor or
-, more commonly, from factors in a \code{ffdf}}
+\title{The function \code{droplevels} is used to drop unused levels from a \code{ff}
+ factor or , more commonly, from factors in a \code{ffdf}}
 \usage{
   \method{droplevels}{ff} (x, ..., inplace = FALSE)
 }

@@ -2,7 +2,7 @@
 \alias{binned_sumsq}
 \alias{binned_sumsq.default}
 \alias{binned_sumsq.ff}
-\title{Fast summing in different bins}
+\title{Fast squared summing in different bins}
 \usage{
   binned_sumsq(x, mean = rep(0, nbins), bin,
     nbins = max(bin), ...)

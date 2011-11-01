@@ -1,6 +1,7 @@
 \name{grouprunningcumsum}
 \alias{grouprunningcumsum}
-\title{Groups the input integer vector into several groups if the running cumulative sum increases a certain maximum number}
+\title{Groups the input integer vector into several groups if the running cumulative
+sum increases a certain maximum number}
 \usage{
   grouprunningcumsum(x, max)
 }
