@@ -2,13 +2,13 @@
 \alias{!.ff_vector}
 \alias{!=.ff_vector}
 \alias{&.ff_vector}
-\alias{|.ff_vector}
 \alias{<.ff_vector}
 \alias{<=.ff_vector}
 \alias{==.ff_vector}
 \alias{>.ff_vector}
 \alias{>=.ff_vector}
 \alias{Operators}
+\alias{|.ff_vector}
 \title{Ops for ff vectors}
 \usage{
   \method{>}{ff_vector} (x, y)

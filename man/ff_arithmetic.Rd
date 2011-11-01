@@ -1,12 +1,12 @@
 \name{+.ff_vector}
-\alias{-.ff_vector}
 \alias{*.ff_vector}
+\alias{+.ff_vector}
+\alias{-.ff_vector}
 \alias{/.ff_vector}
+\alias{Arithmetic}
 \alias{\%/\%.ff_vector}
 \alias{\%\%.ff_vector}
 \alias{^.ff_vector}
-\alias{+.ff_vector}
-\alias{Arithmetic}
 \title{Arithmetic Operators for ff vectors}
 \usage{
   \method{+}{ff_vector} (x, y)

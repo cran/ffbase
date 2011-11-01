@@ -1,4 +1,5 @@
 \name{abs.ff_vector}
+\alias{Math}
 \alias{abs.ff_vector}
 \alias{acos.ff_vector}
 \alias{acosh.ff_vector}
@@ -19,7 +20,6 @@
 \alias{log10.ff_vector}
 \alias{log1p.ff_vector}
 \alias{log2.ff_vector}
-\alias{Math}
 \alias{round.ff_vector}
 \alias{sign.ff_vector}
 \alias{signif.ff_vector}

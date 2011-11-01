@@ -15,11 +15,11 @@
 #' otherwise if the expression is a data.frame a newly created \code{ffdf} object will be returned.
 ffdfwith <- function(data, expr, ...){
    
-   es <- deparse(substitute(expr))
-   e <- chunkexpr(names(data), es, prefix=".x$")
-   .x <- data
+   es <- as.expression(substitute(expr))
+   e <- chunkexpr(es, names(data), prefix="._x$")
+   ._x <- data
    
-   chunks <- chunk(.x, ...)
+   chunks <- chunk(._x, ...)
    
    .i <- chunks[[1]]
    res <- eval(e)
