@@ -19,7 +19,7 @@
   Same functionality as \code{\link{within}}. Please note
   that you should write your expression as if it is a
   normal \code{data.frame}. The resulting data.frame
-  however will be a \code{ffdf} data.frame.
+  however will be a new \code{ffdf} data.frame.
 }
 \examples{
 

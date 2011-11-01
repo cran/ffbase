@@ -1,9 +1,6 @@
 \name{ffwhich}
 \alias{ffwhich}
-\title{Create an index from a filter statement
-\code{ffwhich} creates an \code{\link{ff}} integer index vector
-from a filter expression. The resulting vector can be used to index or subset
-a ffdf or ff vector.}
+\title{Create an index from a filter statement}
 \usage{
   ffwhich(x, expr, ...)
 }
@@ -15,10 +12,9 @@ a ffdf or ff vector.}
   \item{...}{not used}
 }
 \description{
-  Create an index from a filter statement \code{ffwhich}
-  creates an \code{\link{ff}} integer index vector from a
-  filter expression. The resulting vector can be used to
-  index or subset a ffdf or ff vector.
+  \code{ffwhich} creates an \code{\link{ff}} integer index
+  vector from a filter expression. The resulting vector can
+  be used to index or subset a ffdf or ff vector.
 }
 \examples{
 # create a ff vector

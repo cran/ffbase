@@ -24,9 +24,9 @@
 }
 \description{
   Add a ff vector that contains the order of the
-  \code{\link{ff}} vector \code{x} as an attribute. The or
-  can be retrieved using \code{ffordered}. Note that you
-  have to assign the result to the original vector
+  \code{\link{ff}} vector \code{x} as an attribute. The
+  order can be retrieved using \code{ffordered}. Note that
+  you have to assign the result to the original vector
   \code{x}.
 }
 \examples{

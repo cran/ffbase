@@ -4,7 +4,7 @@
 #' Faster than \code{\link{with.ffdf}}, but in constrast \code{ffdfwith} can change the original data.
 #' Please note that you should write
 #' your expression as if it is a normal \code{data.frame}. The resulting return value
-#' however will be a \code{ff} object.
+#' however will be a \code{ffdf} object.
 #' @export
 #'
 #' @example ../examples/ffdfwith.R
@@ -24,8 +24,10 @@ ffdfwith <- function(data, expr, ...){
    .i <- chunks[[1]]
    res <- eval(e)
    
-   if (is.character(res)){
+   fc <- FALSE
+   if (is.character(res) || is.factor(res)){
      res <- as.factor(res)
+     fc <- TRUE
    } else if (is.data.frame(res)){
      fc <- sapply(res, function(x) is.factor(x) || is.character(x))
      res[fc] <- lapply(res[fc], as.factor)
@@ -36,7 +38,7 @@ ffdfwith <- function(data, expr, ...){
       length(res) <- nrow(data)
       for (.i in chunks[-1]){
         r <- eval(e)
-        if (is.factor(res)){
+        if (fc){
              r <- as.factor(r)
              levels(res) <- appendLevels(res, levels(r))
          }

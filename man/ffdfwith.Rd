@@ -25,7 +25,7 @@
   can change the original data. Please note that you should
   write your expression as if it is a normal
   \code{data.frame}. The resulting return value however
-  will be a \code{ff} object.
+  will be a \code{ffdf} object.
 }
 \examples{
 dat <- data.frame(x=1:10, y=10:1)

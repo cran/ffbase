@@ -1,6 +1,6 @@
 #' Evaluate an expression in a ffdf data environment 
 #' 
-#' Evaluate an R expression in an environment constructed from a ffdata data frame.
+#' Evaluate an R expression in an environment constructed from a ffdf data frame.
 #' (see \code{\link{with}}). Please note that you should write
 #' your expression as if it is a normal \code{data.frame}. The resulting return value
 #' however will be a \code{ff} object.
@@ -21,20 +21,20 @@ with.ffdf <- function(data, expr, ...){
    
    cdat <- data[chunks[[1]],,drop=FALSE]
    res <- eval(e, cdat, enclos=parent.frame())
-   
-   if (is.character(res)){
+   fc <- FALSE
+   if (is.character(res) || is.factor(res)){
      res <- as.factor(res)
+     fc <- TRUE
    } else if (is.data.frame(res)){
      fc <- sapply(res, function(x) is.factor(x) || is.character(x))
      res[fc] <- lapply(res[fc], as.factor)
    }
-   
    if (is.vector(res) || is.factor(res)){
       res <- as.ff(res)
       length(res) <- nrow(data)
       for (i in chunks[-1]){
         r <- eval(e, data[i,,drop=FALSE], enclos=parent.frame())
-        if (is.factor(res)){
+        if (fc){ 
              r <- as.factor(r)
              levels(res) <- appendLevels(res, levels(r))
          }
@@ -62,7 +62,7 @@ with.ffdf <- function(data, expr, ...){
 #' 
 #' Same functionality as \code{\link{within}}. Please note that you should write
 #' your expression as if it is a normal \code{data.frame}. The resulting data.frame
-#' however will be a \code{ffdf} data.frame.
+#' however will be a new \code{ffdf} data.frame.
 #' @method within ffdf 
 #' @export
 #'

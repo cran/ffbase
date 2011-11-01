@@ -16,7 +16,8 @@
   subdirectory with the name "<filename>_ff". Each column
   will be named "<columnname>.ff". A saved ffdf data.frame
   is a .rdata file and can be loaded with the \code{load}
-  function
+  function Deprecated, the preferred method is
+  \code{\link{save.ffdf}}
 }
 \examples{
 

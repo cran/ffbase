@@ -1,4 +1,5 @@
 #' Create an index from a filter statement
+#'
 #' \code{ffwhich} creates an \code{\link{ff}} integer index vector
 #' from a filter expression. The resulting vector can be used to index or subset
 #' a ffdf or ff vector.
@@ -27,7 +28,7 @@ ffwhich.ff_vector <- function(x, expr, ...){
   
   fltr <- NULL
   for (.i in chunk(.x, ...)){
-    idx  <- which(eval(e))
+    idx  <- which(eval(e)) +  min(.i) - 1L
     fltr <- ffappend(fltr, idx, ...)
   }
   fltr

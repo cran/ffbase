@@ -20,10 +20,10 @@
 }
 \description{
   Evaluate an R expression in an environment constructed
-  from a ffdata data frame. (see \code{\link{with}}).
-  Please note that you should write your expression as if
-  it is a normal \code{data.frame}. The resulting return
-  value however will be a \code{ff} object.
+  from a ffdf data frame. (see \code{\link{with}}). Please
+  note that you should write your expression as if it is a
+  normal \code{data.frame}. The resulting return value
+  however will be a \code{ff} object.
 }
 \examples{
 dat <- data.frame(x=1:10, y=10:1)

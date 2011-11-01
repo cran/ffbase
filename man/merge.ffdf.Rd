@@ -5,13 +5,8 @@
   \method{merge}{ffdf} (x, y,
     by = intersect(names(x), names(y)), by.x = by,
     by.y = by, all = FALSE, all.x = all, all.y = all,
-    suffixes = c(".x", ".y"), incomparables = NULL,
-    speedup = FALSE,
-    BATCHBYTES.x = getOption("ffbatchbytes"),
-    BATCHBYTES.y = getOption("ffbatchbytes"),
-    RECORDBYTES.x = sum(.rambytes[vmode(x)]),
-    RECORDBYTES.y = sum(.rambytes[vmode(y)]), trace = TRUE,
-    ...)
+    sort = FALSE, suffixes = c(".x", ".y"),
+    incomparables = NULL, trace = FALSE, ...)
 }
 \arguments{
   \item{x}{an ffdf}
@@ -29,42 +24,29 @@
 
   \item{all}{see \code{\link{merge}} in R base}
 
-  \item{all.x}{logical passed on to \code{merge}; if TRUE,
-  then extra rows will be added to the output, one for each
-  row in x that has no matching row in y. These rows will
-  have NAs in those columns that are usually filled with
-  values from y. The default is FALSE, so that only rows
-  with data from both x and y are included in the output.}
+  \item{all.x}{if TRUE, then extra rows will be added to
+  the output, one for each row in x that has no matching
+  row in y. These rows will have NAs in those columns that
+  are usually filled with values from y. The default is
+  FALSE, so that only rows with data from both x and y are
+  included in the output.}
 
   \item{all.y}{similar as all.x}
+
+  \item{sort}{logical, currently not used yet, defaults to
+  FALSE.}
 
   \item{suffixes}{character(2) specifying the suffixes to
   be used for making non-by names() unique.}
 
   \item{incomparables}{values which cannot be matched. See
-  \code{match}.}
-
-  \item{speedup}{logical indicating to use a speedup
-  compared to the regular merge which handles inner and
-  left outer joins. This is done by making a key based on
-  the by.x and by.y columns and matching on the key}
-
-  \item{BATCHBYTES.x}{integer scalar limiting the number of
-  bytes to be processed in one chunk processing the x ffdf}
-
-  \item{BATCHBYTES.y}{integer scalar limiting the number of
-  bytes to be processed in one chunk processing the y ffdf}
-
-  \item{RECORDBYTES.x}{optional integer scalar representing
-  the bytes needed to process one row of x}
-
-  \item{RECORDBYTES.y}{optional integer scalar representing
-  the bytes needed to process one row of y}
+  \code{\link{match}}. Currently not used.}
 
   \item{trace}{logical indicating to show on which chunk
   the function is computing}
 
-  \item{...}{other parameters passed on to chunk}
+  \item{...}{other options passed on to
+  \code{\link[ff]{ffdfindexget}}}
 }
 \value{
   an ffdf
@@ -72,8 +54,20 @@
 \description{
   Merge two ffdf by common columns, or do other versions of
   database join operations. \cr This method is similar as
-  \code{merge} in the base package with a possible speedup
-  for inner and left outer joins.
+  \code{merge} in the base package but only allows inner
+  and left outer joins.\cr Mark that joining is done based
+  on ffmatch or ffdfmatch, meaning that only the first
+  element in \code{y} will be added to \code{x} and
+  ffdfmatch works on \code{link[base]{paste}}-ing together
+  a key. So this might not be suited if your key contains
+  columns of vmode double.\cr
+}
+\details{
+  If a left outer join is performed and no matching record
+  in x is found in y, columns with vmodes 'boolean',
+  'quad', 'nibble', 'ubyte', 'ushort' are coerced
+  respectively to vmode 'logical', 'byte', 'byte', 'short',
+  'integer' to allow NA values.
 }
 \examples{
 authors <- data.frame(
@@ -101,21 +95,32 @@ books <- as.ffdf(books)
 
 dim(books)
 dim(authors)
+## Inner join
+oldffbatchbytes <- getOption("ffbatchbytes")
+options(ffbatchbytes = 100)
+m1 <- merge(books, authors, by.x = "name", by.y = "surname", all.x=FALSE, all.y=FALSE, trace = TRUE)
+dim(m1)
+unique(paste(m1$name[], m1$nationality[]))
+unique(paste(m1$name[], m1$deceased[]))
+m2 <- merge(books[,], authors[,], by.x = "name", by.y = "surname", all.x=FALSE, all.y=FALSE, sort = FALSE)
+dim(m2)
+unique(paste(m2$name[], m2$nationality[]))
+unique(paste(m2$name[], m2$deceased[]))
 ## Left outer join
-m1 <- merge(books, authors, by.x = "name", by.y = "surname", all.x=TRUE, all.y=FALSE, BATCHBYTES.x = 20000, BATCHBYTES.y = 20000, trace = TRUE)                     
+m1 <- merge(books, authors, by.x = "name", by.y = "surname", all.x=TRUE, all.y=FALSE, trace = TRUE)
 class(m1)
 dim(m1)
 names(books)
 names(m1)
-## Inner join
-m1 <- merge(books, authors, by.x = "name", by.y = "surname", all.x=FALSE, all.y=FALSE, BATCHBYTES.x = 20000, BATCHBYTES.y = 20000, trace = TRUE)                     
-dim(m1)
-## Speedup for inner and left outer join
-m1 <- merge(books, authors, by.x = "name", by.y = "surname", all.x=FALSE, all.y=FALSE, speedup=TRUE, BATCHBYTES.x = 20000, BATCHBYTES.y = 20000, trace = FALSE)
-dim(m1)
-m1 <- merge(books, authors, by.x = "name", by.y = "surname", all.x=TRUE, all.y=FALSE, speedup=TRUE, BATCHBYTES.x = 20000, BATCHBYTES.y = 20000, trace = FALSE)
-dim(m1)
-
+unique(paste(m1$name[], m1$nationality[]))
+unique(paste(m1$name[], m1$deceased[]))
+## Show coercion to allow NA's
+authors$test <- ff(TRUE, length=nrow(authors), vmode = "boolean")
+vmode(authors$test)
+m1 <- merge(books, authors, by.x = "name", by.y = "surname", all.x=TRUE, all.y=FALSE, trace = TRUE)
+vmode(m1$test)
+table(m1$test[], exclude=c())
+options(ffbatchbytes = oldffbatchbytes)
 
 
 }

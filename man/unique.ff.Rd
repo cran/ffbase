@@ -1,12 +1,16 @@
 \name{unique.ff}
 \alias{unique.ff}
-\title{Unique values}
+\alias{unique.ffdf}
+\title{Unique values for ff and ffdf objects}
 \usage{
   \method{unique}{ff} (x, incomparables = FALSE,
-    fromLast = FALSE, ...)
+    fromLast = FALSE, trace = FALSE, ...)
+
+  \method{unique}{ffdf} (x, incomparables = FALSE,
+    fromLast = FALSE, trace = FALSE, ...)
 }
 \arguments{
-  \item{x}{\code{ff} object}
+  \item{x}{\code{ff} object or \code{ffdf} object}
 
   \item{incomparables}{a vector of values that cannot be
   compared.  FALSE is a special value, meaning that all
@@ -18,13 +22,42 @@
   be considered from the last, i.e., the last (or
   rightmost) of identical elements will be kept}
 
-  \item{...}{Further arguments passed to
-  \code{\link{unique}}}
+  \item{trace}{logical indicating to show on which chunk
+  the function is computing}
+
+  \item{...}{other parameters passed on to chunk}
 }
 \value{
-  vector with unique values of \code{x}
+  An ffdf with unique values in \code{x} or an ff vector
+  with unique values in \code{x} if x is a ff vector.
 }
 \description{
-  Unique values
+  Unique values for ff and ffdf objects
+}
+\examples{
+data(iris)
+irisdouble <- rbind(iris, iris)
+ffiris <- as.ffdf(irisdouble)
+## unique.ff
+unique(ffiris$Sepal.Length)
+unique(ffiris$Petal.Length)  
+ffiris$Species[1] <- NA
+unique(ffiris$Species)
+levels(unique(ffiris$Species))
+## unique.ffdf
+uiris <- unique(ffiris, trace=TRUE, by=10)[,]
+test <- unique(irisdouble)
+dim(iris)
+dim(irisdouble)
+dim(uiris)
+dim(test)
+!apply(uiris, MARGIN=1, FUN=function(x) paste(x, collapse=",")) \%in\% apply(test, MARGIN=1, FUN=function(x) paste(x, collapse=","))
+!apply(test, MARGIN=1, FUN=function(x) paste(x, collapse=",")) \%in\% apply(uiris, MARGIN=1, FUN=function(x) paste(x, collapse=",")) 
+
+
+
+}
+\seealso{
+  \code{\link[base]{unique}}
 }
 
