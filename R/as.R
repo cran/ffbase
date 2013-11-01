@@ -21,9 +21,11 @@ as.character.ff <- function(x, ...){
 	res		
 }
 
+
 as.ff_matrix <- function(x, ...){
   UseMethod("as.ff_matrix")
 }
+
 as.ff_matrix.ffdf <- function(x, ...){
   result <- ff(NA, dim = dim(x), vmode = names(maxffmode(vmode(x)))[1])
   dimnames(result) <- dimnames(x)
@@ -72,3 +74,27 @@ as.ff_matrix.ffdf <- function(x, ...){
 #   }
 #   return(y)
 # }
+
+#' Trivial implementation, but very handy
+#'
+#' Coerce a ffdf object to an ffdf object.
+#' @method as.ffdf ffdf
+#' @param x ffdf object
+#' @param ... not used.
+#' @import ff
+as.ffdf.ffdf <- function(x, ...){
+  x
+}
+
+#' As ram for an ffdf to get your ffdf as a data frame in RAM
+#'
+#' Load your ffdf object in RAM into a data.frame.
+#' @method as.ram ffdf
+#' @param x an object of class ffdf
+#' @param ... not used.
+#' @return a data.frame in RAM
+#' @import ff
+#' @export
+as.ram.ffdf <- function(x, ...){
+  x[, , drop=FALSE]
+}

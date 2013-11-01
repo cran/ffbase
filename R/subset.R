@@ -19,12 +19,13 @@ subset.ff <- function(x, subset, ...){
 }
 
 subset.ffdf <- function(x, subset, select, drop = FALSE, ...){
-  
+  # remove rownames otherwise we have errors...
+  rownames(x) <- NULL
   if (missing(subset)){
     idx = ffseq_len(nrow(x))
   } else {  
     ss <- as.expression(substitute(subset))
-    try(ss <- subset, silent=TRUE)
+    #try(ss <- subset, silent=TRUE)
     idx <- ffwhich.ffdf(x, ss, envir=parent.frame())
   }
   if (missing(select)){

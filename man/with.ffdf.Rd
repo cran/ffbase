@@ -26,6 +26,12 @@
   normal \code{data.frame}. The resulting return value
   however will be a \code{ff} object.
 }
+\note{
+  `with.ffdf` assumes that the returned object is of equal
+  length as `nrow(data)` and must be converted to a `ff`
+  object In case this is not true, the result won't be
+  correct.
+}
 \examples{
 dat <- data.frame(x=1:10, y=10:1)
 

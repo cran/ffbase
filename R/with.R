@@ -4,6 +4,11 @@
 #' (see \code{\link{with}}). Please note that you should write
 #' your expression as if it is a normal \code{data.frame}. The resulting return value
 #' however will be a \code{ff} object.
+#' 
+#' @note `with.ffdf` assumes that the returned object is of equal length as 
+#' `nrow(data)` and must be converted to a `ff` object
+#' In case this is not true, the result won't be correct.
+#' 
 #' @seealso \code{\link{ffdfwith}}
 #' @method with ffdf 
 #' @export
@@ -21,7 +26,15 @@ with.ffdf <- function(data, expr, ...){
    
    cdat <- data[chunks[[1]],,drop=FALSE]
    res <- eval(e, cdat, enclos=parent.frame())
+   if (NROW(res)!= nrow(cdat)){
+     stop("'with.ffdf' only returns `ff` object of equal length of `nrow(data)`")          
+   }
    fc <- FALSE
+   
+#    if (!is.atomic(res) && !is.data.frame(res)){
+#      stop("'with.ffdf' only returns `ff` object of equal length of `nrow(data)`")
+#    }
+   
    if (is.character(res) || is.factor(res)){
      res <- as.factor(res)
      fc <- TRUE
@@ -34,7 +47,13 @@ with.ffdf <- function(data, expr, ...){
       length(res) <- nrow(data)
       for (i in chunks[-1]){
         Log$chunk(i)
-        r <- eval(e, data[i,,drop=FALSE], enclos=parent.frame())
+        d_i <- data[i,,drop=FALSE]
+        r <- eval(e, d_i, enclos=parent.frame())
+        
+        if (length(r)!= nrow(d_i)){
+          stop("'with.ffdf' only returns `ff` object of equal length of `nrow(data)`")          
+        }
+        
         if (fc){ 
              r <- as.factor(r)
              levels(res) <- appendLevels(res, levels(r))
@@ -43,10 +62,16 @@ with.ffdf <- function(data, expr, ...){
       }
    } else if (is.data.frame(res)){
       res <- as.ffdf(res)
+      rownames(res) <- NULL
       nrow(res) <- nrow(data)
       for (i in chunks[-1]){
         Log$chunk(i)
-        r <- eval(e, data[i,,drop=FALSE], enclos=parent.frame())
+        d_i <- data[i,,drop=FALSE]
+        r <- eval(e, d_i, enclos=parent.frame())
+        
+        if (nrow(r)!= nrow(d_i)){
+          stop("'with.ffdf' only returns `ff` object of equal length of `nrow(data)`")          
+        }
         if (any(fc)){
            r[fc] <- lapply(which(fc), function(x) {
                 r[[x]] <- as.factor(r[[x]])
@@ -56,6 +81,8 @@ with.ffdf <- function(data, expr, ...){
         }
         res[i,] <- r
       }
+   } else {
+     stop("'with.ffdf' only returns `ff` object of equal length of `nrow(data)`")          
    }
    res
 }
@@ -92,7 +119,9 @@ within.ffdf <- function(data, expr, ...){
     cdat[names(l)] <- l
 
     res <- as.ffdf(cdat)
+    rownames(res) <- NULL
     nrow(res) <- nrow(data)
+    rownames(res) <- rownames(data)
     for (i in chunks[-1]){
        cdat <- data[i,,drop=FALSE]
        e <- evalq(environment(), cdat, parent)
@@ -101,6 +130,11 @@ within.ffdf <- function(data, expr, ...){
        l <- l[!sapply(l, is.null)]
        cdat[names(l)] <- l
        cdat[del] <- list()
+
+       for(f in names(cdat)[sapply(cdat, is.factor)]) {
+           levels(res[f]) <- appendLevels(levels(res[f]), levels(cdat[f]))
+       }
+
        res[i,] <- cdat
     }
     res
