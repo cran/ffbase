@@ -1,3 +1,12 @@
+version 0.11
+- Fix for issue #19 (thanks to @jwijffels and @gaizoule)
+- allow expand.ffgrid to also work with lists of ff objects (issue #23)
+- speeding up of ffdfdply and fix for issue #27 when supplying wrong split in ffdfdply
+- Fix for issue #29
+- Added check in save.ffdf: if .Rdata is available, by default save.ffdf will give an error. 
+(Thanks to @dnlbrky). Fix for Issue: #30. NOTE this changes default behavior!
+- Changed internal match function into fmatch for speeding up things. issue #28
+
 version 0.10
 - Made several method generics
 - Improved error message in merge.ffdf when one of the columns was missing (Thanks to Milan Bouchet-Valat)
@@ -12,6 +21,7 @@ version 0.10
 - Fix for issue #18: bySum was not working correctly. (Thanks to @stevechc)
 - Fix for issue #21: formula interface for bigglm was not working correctly (Thanks to Chris Louden @louden)
 - Append factor levels in within.ffdf() (Thanks to Milan Bouchet-Valat)
+- overloaded "[.ff" and "[<-.ff" to allow writing  ff(1:3)[ff(c(FALSE, TRUE, TRUE))]
 
 version 0.9
 - fixed an error in chunkexpr: long expressions were cut off, Thanks to gaizoule

@@ -2,7 +2,7 @@
 \alias{ffrep.int}
 \title{Replicate Elements of \code{ff} vectors.}
 \usage{
-  ffrep.int(x, times)
+ffrep.int(x, times)
 }
 \arguments{
   \item{x}{an integer \code{ff} vector}
@@ -14,11 +14,11 @@
   NA values are an error.}
 }
 \value{
-  An ff vector of integers where x is recycled
+An ff vector of integers where x is recycled
 }
 \description{
-  Similar as \code{rep.int} in the base package but for
-  \code{ff} vectors.
+Similar as \code{rep.int} in the base package but for
+\code{ff} vectors.
 }
 \examples{
 ffrep.int(ff(1:1000), times=20)
@@ -26,19 +26,19 @@ ffrep.int(ff(factor(LETTERS)), times=20)
 ffrep.int(ff(Sys.time()), times=20)
 ffrep.int(ff(seq.Date(Sys.Date(), Sys.Date()+10, by = "day")), times=20)
 
-x <- ff(factor(LETTERS), length=10000)
-ffrep.int(x, times=ff(1:10000))
+x <- ff(factor(LETTERS), length=26)
+ffrep.int(x, times=ff(1:26))
 
 ## Or supply an ff vector of the same length as x
 x <- seq.Date(Sys.Date(), Sys.Date()+10, by = "day")
 x <- as.ff(x)
 ffrep.int(x, times=ff(0:10))
 
-x <- ff(factor(LETTERS), length=10)
-ffrep.int(x, times=ff(1:10))
+x <- ff(factor(LETTERS), length=26)
+ffrep.int(x, times=ff(1:26))
 
 }
 \seealso{
-  \code{\link[base]{rep.int}}
+\code{\link[base]{rep.int}}
 }
 
