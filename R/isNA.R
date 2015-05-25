@@ -12,7 +12,8 @@
 #' @param ... other parameters passed on to chunk
 #' @param value a suitable ff index vector for use with x
 #' @return A logical \code{ff} vector of the same length of x indicating if the ff vector contains missing values. 
-#' @export is.na.ff is.na<-.ff
+#' @export
+#' @export is.na.ff
 #' @seealso \code{\link[base]{is.na}, \link[ff]{ffvecapply}}
 is.na.ff <- function(x, ...){
 	res <- ff(vmode="logical", length=length(x))
@@ -24,6 +25,7 @@ is.na.ff <- function(x, ...){
 
 #' @rdname is.na.ff
 #' @usage \method{is.na}{ff} (x, ...) <- value
+#' @export
 "is.na<-.ff" <- function(x, ..., value){
 	if(inherits(value, "ff_vector")){
 		for (i in chunk(value, ...)){

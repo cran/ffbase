@@ -20,7 +20,8 @@ binned_sumsq <- function (x, mean=rep(0, nbins), bin, nbins=max(bin), ...){
 #' @return \code{numeric} matrix where each row is a bin
 #' @rdname binned_sumsq
 #' @method binned_sumsq default
-#' @S3method binned_sumsq default
+#' @export
+#' @export binned_sumsq.default
 binned_sumsq.default <- function (x, mean=rep(0, nbins), bin, nbins=max(bin), ...){
    stopifnot(length(x)==length(bin))
    stopifnot(length(x)==length(mean))
@@ -38,7 +39,7 @@ binned_sumsq.default <- function (x, mean=rep(0, nbins), bin, nbins=max(bin), ..
 #' @return \code{numeric} matrix where each row is a bin
 #' @rdname binned_sumsq
 #' @method binned_sumsq ff
-#' @S3method binned_sumsq ff
+#' @export
 #' @export binned_sumsq.ff
 binned_sumsq.ff <- function(x, mean=rep(0, nbins), bin, nbins=max(bin), ...){
   INDEX <- list(...)$INDEX

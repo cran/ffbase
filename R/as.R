@@ -9,6 +9,7 @@
 #' @param ... other parameters passed on to chunk
 #' @return A factor \code{ff} vector of the same length of x.
 #' @export 
+#' @export as.character.ff
 #' @seealso \code{\link[base]{as.character}}
 as.character.ff <- function(x, ...){
 	levs <- unique(x)[]
@@ -20,7 +21,6 @@ as.character.ff <- function(x, ...){
 	}
 	res		
 }
-
 
 as.ff_matrix <- function(x, ...){
   UseMethod("as.ff_matrix")
@@ -75,13 +75,15 @@ as.ff_matrix.ffdf <- function(x, ...){
 #   return(y)
 # }
 
+
 #' Trivial implementation, but very handy
 #'
 #' Coerce a ffdf object to an ffdf object.
-#' @method as.ffdf ffdf
 #' @param x ffdf object
 #' @param ... not used.
-#' @import ff
+#' @export
+#' @export as.ffdf.ffdf
+#' @importFrom ff as.ffdf
 as.ffdf.ffdf <- function(x, ...){
   x
 }
@@ -89,12 +91,12 @@ as.ffdf.ffdf <- function(x, ...){
 #' As ram for an ffdf to get your ffdf as a data frame in RAM
 #'
 #' Load your ffdf object in RAM into a data.frame.
-#' @method as.ram ffdf
 #' @param x an object of class ffdf
 #' @param ... not used.
 #' @return a data.frame in RAM
-#' @import ff
 #' @export
+#' @export as.ram.ffdf
+#' @importFrom ff as.ram
 as.ram.ffdf <- function(x, ...){
   x[, , drop=FALSE]
 }
