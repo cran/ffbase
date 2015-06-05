@@ -29,7 +29,7 @@ c.ff <- function(...){
 ffappend <- function(x, y, adjustvmode=TRUE, ...){
    if (is.null(x)){
       if (is.ff(y)){
-		    return(clone(y))
+		    return(ff::clone.ff(y))
 	    } else {
         return (if (length(y)) as.ff(y))
 	    }
@@ -77,13 +77,13 @@ ffdfappend <- function(  x
                        ){
   
   fc <- if (is.ffdf(dat)){ 
-    sapply(physical(dat)[names(dat)], function(i) is.factor.ff(i))
+    sapply(bit::physical(dat)[names(dat)], function(i) is.factor.ff(i))
   } else {
     sapply(dat, function(i) is.factor(i) || is.character(i))    
   }
 
   if (!is.null(x)){
-    fc <- fc | sapply(physical(x)[names(fc)], is.factor.ff)
+    fc <- fc | sapply(bit::physical(x)[names(fc)], is.factor.ff)
   }
 
   if (any(fc) && !is.ffdf(dat)){
