@@ -71,7 +71,7 @@ ffdfmatch <- function(x, table, nomatch = NA_integer_, incomparables = NULL, tra
   ## First work on looping over x, then over the table
   for (i in xchunk){
     Log$chunk(i)
-    xi <- x[i, ]   
+    xi <- x[i, , drop=FALSE]   
     unmatched <- TRUE
     
     if (trace){
@@ -83,7 +83,7 @@ ffdfmatch <- function(x, table, nomatch = NA_integer_, incomparables = NULL, tra
       if(trace) {
         message(sprintf("%s, working on table chunk %s:%s", Sys.time(), min(j), max(j)))      
       }
-      m[unmatched] <- fmatch(x=do.call(paste, xi[unmatched, ]), table=do.call(paste, table[j, ]), incomparables=incomparables) +  min(j) - 1L     
+      m[unmatched] <- fmatch(x=do.call(paste, xi[unmatched, , drop=FALSE]), table=do.call(paste, table[j, , drop=FALSE]), incomparables=incomparables) +  min(j) - 1L     
       unmatched <- is.na(m)
       if (!any(unmatched)) break
     }
@@ -99,11 +99,11 @@ in.default <- get(x="%in%")
 #' @export
 #' @usage x \%in\% table
 "%in%" <- function(x, table){
-	if(inherits(x, "ff_vector") & inherits(table, "ff_vector")){
-		ffmatch(x=x, table=table, nomatch = 0L) > 0L
-	}else if(inherits(x, "ffdf") & inherits(table, "ffdf")){
-		ffdfmatch(x=x, table=table, nomatch = 0L) > 0L
-	}else{
+	if(inherits(x, "ff_vector")){
+		ffmatch(x=x, table=as.ff(table), nomatch = 0L) > 0L
+	} else if(inherits(x, "ffdf") && inherits(table, "ffdf")){
+		ffdfmatch(x=x, table=as.ffdf(table), nomatch = 0L) > 0L
+	} else{
 		in.default(x=x, table=table)
 	}	
 }
