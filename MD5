@@ -1,10 +1,10 @@
-7e22a88855f1fa8838ff6c34188861f2 *DESCRIPTION
+8cfd9f79bd217dcb6f589b39e8ed3a60 *DESCRIPTION
 6d6fec3b42f2f1cc94a31fa7f8bb669c *NAMESPACE
 25c5fa989ba69e42b71bd73c8608d148 *NEWS
 d00a8eb07cbd1b911ddfd5f680599722 *R/Ops.R
 9acb946e3051d9c7ef27b7a11d971f24 *R/Summary_ff.R
 49c0a1be47ee0ebdb124d8b4435899de *R/as.R
-e9832fc5fb365e39f1dc2cbe6c4639ba *R/auxilary.R
+1037138fd50d4e0b1e578675fc555913 *R/auxilary.R
 071bde39575ab4fc747d42ca635f35c6 *R/bigglm.R
 c6b77f3d8c49e84f1a218bc44751d835 *R/binned_sum.R
 ff3000589129319c2466216c9ac2b2c3 *R/binned_sumsq.R
@@ -12,7 +12,7 @@ ff3000589129319c2466216c9ac2b2c3 *R/binned_sumsq.R
 34f145c1ec1d892af16fe4d4f8d261e6 *R/byMean.R
 eb5d62a4725e5b3380da6e3e9d616679 *R/bySum.R
 7bfbc49530226ec3e887d4515abd55de *R/chunkify.R
-4c735068486a5f79d9ab06c579ea9ca5 *R/compact.R
+e17f0ef6d815ab40f198220209d43471 *R/compact.R
 b940797cbbc62d51eb32ee57908522bd *R/cumsum.R
 4d5e566568deb0dc508e4f754d500aae *R/cut_ff.R
 6cb702cd8797681c6ca887458c351d75 *R/date_formatting.R
@@ -22,7 +22,7 @@ e96bb06cb36433c8159f9478a6f7d909 *R/droplevels.R
 2fc44737df4c37474d0833df8340ab0d *R/expand_ffgrid.R
 c9a1965d1e0a41cf4a16f722a207946a *R/extract.R
 72c75134eca84707a566815a543fe9e1 *R/ffappend.R
-da2935cf86a51b8c6fc356b246c17586 *R/ffdfdply.R
+ab5653d9ee5f8b9ba2562acb3dce809a *R/ffdfdply.R
 231222a8eb4087877686477bf72aa6f3 *R/ffdfsave.R
 45d63587f5e6ec2b20c6f29acec2584e *R/ffdfwith.R
 157c6f816f62691f471c23a88783d135 *R/ffifelse.R
@@ -43,7 +43,7 @@ dda84f8ba96e909001197d94fb95a3fe *R/logging.R
 21f099453bc25fe955d59f0cb0352b59 *R/pkg.R
 b754107e8a2bfded0804ab3e4560aa3e *R/quantile_ff.R
 2b68aa8f6768d6bd90e2af7bf12a008b *R/rbind_ffdf.R
-632dd51c81bf80ad216fdffab38dfbc1 *R/rev_ff.R
+645d70af7fbf4dc4cd2eecb6b42ad8cb *R/rev_ff.R
 7294eef87210d4372a209ddc596fd05e *R/rle_ff.R
 73deff80a9838b08f6f2ecd80b019077 *R/save_ffdf.R
 4dae6af2d6bb08dac18192eeb4276a2c *R/subset.R
@@ -60,7 +60,7 @@ de9f8a95781dd8a5b85fcd45a19b43b9 *man/as.Date.ff_vector.Rd
 ed35661dff47426b8a25205b6aab8028 *man/as.character.ff.Rd
 aa98676c135bdac923c956f621f75c9f *man/as.ffdf.ffdf.Rd
 38b2d488d1b6b81a163c2d820264f48c *man/as.ram.ffdf.Rd
-93be004340fe689c507bb0a47ca8523a *man/bigglm.ffdf.Rd
+84098f7b9145c10e854bf1e8a1a2e012 *man/bigglm.ffdf.Rd
 ddf27d409a75b234b04ce17891474819 *man/binned_sum.Rd
 428cb2eeb0c65a6b5160c36359ab98c9 *man/binned_sumsq.Rd
 8ff1ba122ccaefc574661c9f3a36de41 *man/binned_tabulate.Rd
@@ -85,7 +85,7 @@ a19e1c91d7047b237b25fd580ef8643d *man/cut.ff.Rd
 a7f03a6ee8c928d53ceb70974ecd8520 *man/ffappend.Rd
 9489a65234296596f2f6674b3d00069a *man/ffbase-package.Rd
 16998d183f4c0880cb21812eef3ab31a *man/ffdfappend.Rd
-19399097f60c05726b025da9a80db6c5 *man/ffdfdply.Rd
+90232b1d00fd39bf4ce6ba40dcabc453 *man/ffdfdply.Rd
 d536cd5da10a86097fd2d07f0f6613c1 *man/ffdfrbind.fill.Rd
 095f065405e81147ea98b35fb7f42c16 *man/ffdfwith.Rd
 83d975a8376e35a094a8c45d48bc16e2 *man/ffextract.Rd
@@ -107,7 +107,7 @@ ecca9aed01b10b73df865cc2bbb0e583 *man/is.na.ff.Rd
 0c8834fc479f2aa4781d250655736d2a *man/laf_to_ffdf.Rd
 02b4d7105b2c211ac9889534363d13a7 *man/load.ffdf.Rd
 6d39aa623ac83c102021ed59fbd59736 *man/mean.ff.Rd
-599e28c0a65c8af8c7d314af545c0509 *man/merge.ffdf.Rd
+f49d4025d2bacbe5e93e4d772899d148 *man/merge.ffdf.Rd
 f5a63102e2a25dd41eb401d4836bbe0f *man/min.ff.Rd
 c43283001c74249664aa9d821aff8186 *man/move.ffdf.Rd
 5d6a79bed2eac1bd1f64022584e777ed *man/pack.ffdf.Rd
@@ -151,14 +151,14 @@ a6f109e71cb37b32ef8c48874a6d81ba *tests/testthat/testffappend.R
 77cd538f6e9c39a613636024373dc2ae *tests/testthat/testisna.R
 dd051e14a14a6f8783e823e127122c45 *tests/testthat/testlaf.R
 1c40358378d21e1cfab1483484c22edb *tests/testthat/testmean.ff.R
-e54592dae24f0e1327dd19f246c829d6 *tests/testthat/testmerge.R
+d226e272aa842ef188c1bed883095d22 *tests/testthat/testmerge.R
 2047816b93fd84ac5abe268ad030f5cf *tests/testthat/testmin.ff.R
 c2a321c336de3f29b0845ca280435608 *tests/testthat/testrange_ff.R
 959361f275d17ee836d5a17abc9ac45c *tests/testthat/testrisplit.R
 5c82a9add7e37e73b0ce2bfedc281a8d *tests/testthat/testrle_ff.R
 99eeee53dc59f522ed9b61d713d6fe97 *tests/testthat/testsave_ffdf.R
 e66bc69b4128fb35232462e75e2f2703 *tests/testthat/testseq.R
-436f2f87c91039b2f5b100b30c6557f6 *tests/testthat/testsops.R
+5d42a939b76b3c46438473a12dad2344 *tests/testthat/testsops.R
 f2da9993ae35d6586ce147af07da3e16 *tests/testthat/testsubset.R
 57ffb8b09f08fff80c5698e99d9a6a10 *tests/testthat/testsum_ff.R
 2f1990819eec8cdff207e5214b664793 *tests/testthat/testtable_ff.R
