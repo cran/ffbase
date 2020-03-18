@@ -7,13 +7,14 @@ LazyLoad: yes
 Author: Edwin de Jonge, Jan Wijffels, Jan van der Laan
 Description: Extends the out of memory vectors of 'ff' with
     statistical functions and other utilities to ease their usage.
-Version: 0.12.7
+Version: 0.12.8
 URL: http://github.com/edwindj/ffbase
 Depends: R (>= 2.12.0),ff(>= 2.2-11)
 Imports: fastmatch, bit
 Suggests: testthat, parallel, LaF, biglm
-RoxygenNote: 6.1.0
+RoxygenNote: 7.0.2
+Encoding: UTF-8
 NeedsCompilation: yes
-Packaged: 2018-11-06 23:12:14 UTC; edwin
+Packaged: 2020-03-08 13:33:09 UTC; edwindj
 Repository: CRAN
-Date/Publication: 2018-11-06 23:40:03 UTC
+Date/Publication: 2020-03-18 09:00:02 UTC
