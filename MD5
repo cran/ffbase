@@ -1,4 +1,4 @@
-5efd3592a6cca9a822eb11631fe371ab *DESCRIPTION
+7163059a404ee0269945eb6e65c16e9c *DESCRIPTION
 c66fcfa6c2070fd3204008fe3f60f6d6 *NAMESPACE
 7d4b1321de7c8dd119b0962136112fb0 *NEWS
 d00a8eb07cbd1b911ddfd5f680599722 *R/Ops.R
@@ -6,8 +6,8 @@ d00a8eb07cbd1b911ddfd5f680599722 *R/Ops.R
 49c0a1be47ee0ebdb124d8b4435899de *R/as.R
 1ec498b9e56e9456da6c241f4e07fb8c *R/auxilary.R
 071bde39575ab4fc747d42ca635f35c6 *R/bigglm.R
-aa3f2768765a3d28b3095ed81c971662 *R/binned_sum.R
-74174f8c2239029cdeee08cc379c278b *R/binned_sumsq.R
+5da23838d1e300d5a3f4ec4ab80aad9e *R/binned_sum.R
+9c1d6b5866b2ad71d4c09b27cd85199c *R/binned_sumsq.R
 0d953d09cca08dd5339a6bf93bd1be58 *R/binned_tabulate.R
 34f145c1ec1d892af16fe4d4f8d261e6 *R/byMean.R
 eb5d62a4725e5b3380da6e3e9d616679 *R/bySum.R
@@ -135,6 +135,7 @@ efcb8736f5976bc993e6c8b6b1e9f066 *src/bySum.c
 6f1b8a77314eec833946161f2f6996f4 *src/grouprunningcumsumindex.c
 8e6f20331903a5360e9c22914dff005c *src/init.c
 bc46f272428d37f68f0a5a892edf5781 *tests/testthat.R
+4a7d34527545efdf5c7c406038fe41b2 *tests/testthat/test-binned_sum.R
 2700897854c47af9c1a6be3bc868d4c6 *tests/testthat/test-ffseq.R
 d5bd021bcd43f13bdc9f7cb82db89b5f *tests/testthat/testSummary.R
 cdf18b575d5e2cdc05e7f82ee1b96b8e *tests/testthat/testchunkify.R
